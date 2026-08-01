@@ -37,9 +37,11 @@ BACKUP_DIR = \<name of directory to save files\>
 ### Log File
 LOG_FILENAME = \<name of file to save log messages\>
 
-### Ram Settings                
-RAM_INITIAL = \<amount of ram to start the server with\><br>
-RAM_MAX = \<maximum amount of ram to allocate torwards the server\>           
-           
+### Memory / JVM
+Heap size uses **MemAvailable + current MC RSS**. Other programs stay excluded, but if Minecraft is already running its own memory is added back so a restart is not undersized. About 75% of (budget − 1G reserve) goes to the JVM. Startup uses Aikar's G1GC flags (12G+ profile when needed). Optional knobs in `update.py`:
+- `AVAILABLE_RAM_RATIO` — fraction of usable budget for the JVM (default `0.75`)
+- `MIN_OS_RESERVE_MB` / `MIN_HEAP_MB` — floors in MiB
+- `STOP_TIMEOUT_SEC` — how long to wait for a clean shutdown before start/update
+
 ## Scheduling Updates
 This script is intended to be run as a cron job.
